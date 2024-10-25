@@ -12,22 +12,28 @@
 <body>
 <div class="weather-app">
    <header>
-    <form>
-        <input type="search" placeholder="Please enter a city" required/>
-        <input type="submit" value="Search"/>
+    <form class="search">
+        <input type="search" placeholder="Please enter a city" required class="search-input"/>
+        <input type="submit" value="Search" class="search-button"/>
     </form>
    </header>
 
    <main>
-    <div>
-        <h1>Lisbon</h1>
-        <p>
-            Wednesday 12:00, clouds
-            <br/>
-            Humidity: 70%, Wind; 3km/h
-        </p>
+    <div class="weather-data">
+        <div>
+            <h1 class="weather-city">Lisbon</h1>
+            <p class="weather-details">
+                 Wednesday 12:00, clouds
+             <br/>
+                Humidity: <strong>70%</strong>, Wind: <strong>3km/h</strong>
+            </p>
+        </div>
+        <div class="weather-temp">
+           <div class="weather-icon">☁️</div>
+           <div class="weather-current-temp">14</div>
+           <div class="weather-unit">ºC</div>
+           </div>
     </div>
-    <div>☁️ 14ºC</div>
    </main>
 
     <footer>This project was coded by 
