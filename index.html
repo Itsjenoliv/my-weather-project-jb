@@ -12,8 +12,8 @@
 <body>
 <div class="weather-app">
    <header>
-    <form class="search">
-        <input type="search" placeholder="Please enter a city" required class="search-input"/>
+    <form class="search" id="search">
+        <input type="search" placeholder="Please enter a city" required class="search-input" id="search-input"/>
         <input type="submit" value="Search" class="search-button"/>
     </form>
    </header>
@@ -21,7 +21,7 @@
    <main>
     <div class="weather-data">
         <div>
-            <h1 class="weather-city">Lisbon</h1>
+            <h1 class="weather-city" id="weather-city">Lisbon</h1>
             <p class="weather-details">
                  Wednesday 12:00, clouds
              <br/>
@@ -42,5 +42,6 @@
         and hosted on <a href="https://my-weather-project-jb.netlify.app" target="_blank">Netlify</a>
     </footer>
 </div>
+<script src="src/index.js"></script>
 </body>
 </html>
