@@ -17,6 +17,8 @@ function updateWeather(response) {
     speedElement.innerHTML = `${response.data.wind.speed}km/h`;
     tempElement.innerHTML = Math.round(temp);
     icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-temp" />`;
+
+    getForecast(response.data.city);
 }
 
 function formatDate(date) {
@@ -38,27 +40,40 @@ function searchCity (city) {
     axios.get(apiUrl).then(updateWeather);
 }
 
-
 function handleSubmit (event) { 
     event.preventDefault();
     let searchInput = document.querySelector("#search-input");
     searchCity(searchInput.value);
 }
 
-function displayForecast () {
-    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    return days[date.getDay()];
+}
+
+function getForecast(city) {
+    let apiKey = "65a24eoe6e271bf94a4a755eb31f805t";
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);
+}
+
+function displayForecast (response) {
     let forecastHtml = "";
 
-    days.forEach(function (day) {
+    response.data.daily.forEach(function (day, index) {
+        if (index < 5) {
         forecastHtml = forecastHtml +
         `<div class="weather-forecast-day">
-            <div class="weather-forecaste-date">${day}</div>
-            <div class="weather-forecast-icon">☁️</div>
+            <div class="weather-forecaste-date">${formatDay(day.time)}</div>
+            <div><img src="${day.condition.icon_url}" class="weather-forecast-icon"/></div>
             <div class="weather-forecast-temps">
-                <div class="weather-forecast-temp"><strong>15º</strong></div>
-                <div class="weather-forecast-temp"> 9º</div>
+                <div class="weather-forecast-temp"><strong>${Math.round(day.temperature.maximum)}º</strong></div>
+                <div class="weather-forecast-temp">${Math.round(day.temperature.minimum)}º</div>
             </div>
         </div>`;
+    }
     });
 
     let forecasteElement = document.querySelector("#forecast");
@@ -69,5 +84,3 @@ let searchElement = document.querySelector("#search");
 searchElement.addEventListener("submit", handleSubmit)
 
 searchCity("Lisbon");
-
-displayForecast ();
